@@ -13,7 +13,7 @@ class Model(nn.Module):
         self.watermark_fc_back = torch.nn.Linear(num_point, num_bit)
         self.n_fft = n_fft
         self.hop_length = hop_length
-
+#test comment
     def stft(self, data):
         window = torch.hann_window(self.n_fft).to(data.device)
         # torch: return_complex=False is deprecDeprecated since version 2.0: return_complex=False is deprecated,
