@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "WavMarkEnhanced"
+version = "0.0.1"
+authors = [
+    { name = "Chan Jian Sen", email = "jcha0155@student.monash.edu" },
+]
+description = "FIT3164 Audio Watermarking Tool"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "tqdm", "librosa", "resampy", "huggingface_hub",
+    "torch",
+    "torchaudio",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jcha0155/WavMarkEnhanced"
+"Bug Tracker" = "https://github.com/jcha0155/WavMarkEnhanced/issues"
