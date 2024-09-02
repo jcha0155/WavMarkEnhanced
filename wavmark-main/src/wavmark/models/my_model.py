@@ -44,7 +44,10 @@ class Model(nn.Module):
     def decode(self, signal):
         signal_fft = self.stft(signal)
         watermark_fft = signal_fft
-        _, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
+        
+        signal_restored_fft, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
+        signal_restored_expanded = self.istft(signal_restored_fft)
+        signal_restored_float = self.watermark_fc_back(signal_restored_expanded).clamp(-1, 1)
         message_restored_expanded = self.istft(message_restored_fft)
         message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
         return message_restored_float
