@@ -38,11 +38,13 @@ def add_watermark(bit_arr, data, num_point, shift_range, device, model, min_snr,
                                                                            bit_arr,
                                                                            device, model, min_snr, max_snr)
 
-        if state == "skip":
-            skip_sections += 1
-        else:
-            encoded_sections += 1
+        #if state == "skip":
+            #skip_sections += 1
+        #else:
+            #encoded_sections += 1
 
+        encoded_sections += 1
+        #modification here
         output = np.concatenate([current_chunk_cover_area_wmd, current_chunk_shift_area])
         assert output.shape == current_chunk.shape
         output_chunks.append(output)
