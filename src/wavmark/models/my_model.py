@@ -52,7 +52,7 @@ class Model(nn.Module):
         
         message_restored_expanded = self.istft(message_restored_fft)
         message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
-        return message_restored_float
+        return signal_restored_float,message_restored_float
 
     def enc_dec(self, signal, watermark, rev):
         signal = signal.permute(0, 3, 2, 1)
