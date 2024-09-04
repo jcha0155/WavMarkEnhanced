@@ -74,7 +74,7 @@ def encode_trunck_with_snr_check(idx_trunck, signal, wm, device, model, min_snr,
         snr = metric_util.signal_noise_ratio(signal, signal_wmd)
         #if encode_times == 1 and snr < min_snr:
         if encode_times == 1:
-            print("test subject 1")
+            #print("test subject 1")
             #print("skip section:%d, snr too low:%.1f" % (idx_trunck, min_snr))
             return signal, "skip"
 
