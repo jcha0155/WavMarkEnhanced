@@ -60,3 +60,19 @@ class Model(nn.Module):
         watermark = watermark.permute(0, 3, 2, 1)
         signal2, watermark2 = self.hinet(signal, watermark, rev)
         return signal2.permute(0, 3, 2, 1), watermark2.permute(0, 3, 2, 1)
+
+
+
+    # 2024-09-11 RAVINDI EDITS
+    def decode_ravindi(self, signal):
+        signal_fft = self.stft(signal)
+        watermark_fft = signal_fft
+
+        signal_restored_fft, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
+
+        message_restored_expanded = self.istft(message_restored_fft)
+        signal_restored_expanded = self.istft(signal_restored_fft)
+
+        message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
+
+        return signal_restored_expanded, message_restored_float
