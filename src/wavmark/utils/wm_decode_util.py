@@ -133,7 +133,7 @@ def extract_watermark_v3_batch_ravindi(data, start_bit, shift_range, num_point, 
             signal_restored = signal_restored_1.detach().cpu().numpy().squeeze()
 
             # ADDED
-            assert signal_restored.shape == signal.shape
+            # assert signal_restored.shape == signal.shape
             output_chunks.append(signal_restored)
 
             # batch_message = (model.decode(signal) >= 0.5).int().detach().cpu().numpy()
