@@ -41,7 +41,7 @@ def extract_watermark_v3_batch(data, start_bit, shift_range, num_point, model, d
         current_batch = np.array([data[p:p + num_point] for p in detect_points])
         with torch.no_grad():
             signal = torch.FloatTensor(current_batch).to(device)
-            s,m = model.decode(signal)
+            # s,m = model.decode(signal)
             batch_message = (model.decode(signal) >= 0.5).int().detach().cpu().numpy()
             #batch_message = (m >= 0.5).int().detach().cpu().numpy()
             #batch_signal = (s >= 0.5).int().detach().cpu().numpy()
