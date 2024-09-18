@@ -45,14 +45,19 @@ class Model(nn.Module):
         signal_fft = self.stft(signal)
         watermark_fft = signal_fft
         #Replacing _ with signal_restored_fft
-        signal_restored_fft, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
-        #Adding signal_restored_expanded and signal_restored_float variables
-        signal_restored_expanded = self.istft(signal_restored_fft)
-        signal_restored_float = self.watermark_fc_back(signal_restored_expanded).clamp(-1, 1)
+        # signal_restored_fft, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
+        # #Adding signal_restored_expanded and signal_restored_float variables
+        # signal_restored_expanded = self.istft(signal_restored_fft)
+        # signal_restored_float = self.watermark_fc_back(signal_restored_expanded).clamp(-1, 1)
         
+        # message_restored_expanded = self.istft(message_restored_fft)
+        # message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
+        # return signal_restored_float,message_restored_float
+
+        _, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
         message_restored_expanded = self.istft(message_restored_fft)
         message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
-        return signal_restored_float,message_restored_float
+        return message_restored_float
 
     def enc_dec(self, signal, watermark, rev):
         signal = signal.permute(0, 3, 2, 1)

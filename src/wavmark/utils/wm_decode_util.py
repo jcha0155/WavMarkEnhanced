@@ -42,9 +42,9 @@ def extract_watermark_v3_batch(data, start_bit, shift_range, num_point, model, d
         with torch.no_grad():
             signal = torch.FloatTensor(current_batch).to(device)
             s,m = model.decode(signal)
-            #batch_message = (model.decode(signal) >= 0.5).int().detach().cpu().numpy()
-            batch_message = (m >= 0.5).int().detach().cpu().numpy()
-            batch_signal = (s >= 0.5).int().detach().cpu().numpy()
+            batch_message = (model.decode(signal) >= 0.5).int().detach().cpu().numpy()
+            #batch_message = (m >= 0.5).int().detach().cpu().numpy()
+            #batch_signal = (s >= 0.5).int().detach().cpu().numpy()
             for p, bit_array in zip(detect_points, batch_message):
                 decoded_start_bit = bit_array[0:len(start_bit)]
                 ber_start_bit = 1 - np.mean(start_bit == decoded_start_bit)
@@ -59,19 +59,19 @@ def extract_watermark_v3_batch(data, start_bit, shift_range, num_point, model, d
                     "start_time_position": p / 16000
                 })
             #Signal
-            for p, bit_array in zip(detect_points, batch_signal):
-                decoded_start_bit = bit_array[0:len(start_bit)]
-                ber_start_bit = 1 - np.mean(start_bit == decoded_start_bit)
-                num_equal_bits = np.sum(start_bit == decoded_start_bit)
-                if ber_start_bit > 0:  # exact match
-                    continue
-                results.append({
-                    "sim": 1 - ber_start_bit,
-                    "num_equal_bits": num_equal_bits,
-                    "signal": bit_array,
-                    "start_position": p,
-                    "start_time_position": p / 16000
-                })
+            # for p, bit_array in zip(detect_points, batch_signal):
+            #     decoded_start_bit = bit_array[0:len(start_bit)]
+            #     ber_start_bit = 1 - np.mean(start_bit == decoded_start_bit)
+            #     num_equal_bits = np.sum(start_bit == decoded_start_bit)
+            #     if ber_start_bit > 0:  # exact match
+            #         continue
+            #     results.append({
+            #         "sim": 1 - ber_start_bit,
+            #         "num_equal_bits": num_equal_bits,
+            #         "signal": bit_array,
+            #         "start_position": p,
+            #         "start_time_position": p / 16000
+            #     })
 
     end_time = time.time()
     time_cost = end_time - start_time
