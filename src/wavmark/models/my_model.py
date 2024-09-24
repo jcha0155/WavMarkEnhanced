@@ -42,6 +42,7 @@ class Model(nn.Module):
         return signal_wmd
 
     def decode(self, signal):
+      print("TEST: decode")
 
       signal_fft = self.stft(signal)
       watermark_fft = signal_fft
@@ -69,6 +70,7 @@ class Model(nn.Module):
 
 
     def enc_dec(self, signal, watermark, rev):
+        print("TEST: enc_dec")
         signal = signal.permute(0, 3, 2, 1)
         # [4, 2, 41, 501]
         watermark = watermark.permute(0, 3, 2, 1)
