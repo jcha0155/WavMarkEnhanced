@@ -17,7 +17,6 @@ def decode_trunck(trunck, model, device):
 def extract_watermark_v3_batch(data, start_bit, shift_range, num_point, model, device, batch_size=10,
                                shift_range_p=0.5, show_progress=False):
 
-    print("TEST: extract_watermark_v3_batch")
     assert type(show_progress) == bool
     start_time = time.time()
     # 1.determine the shift step length:

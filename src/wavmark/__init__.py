@@ -35,7 +35,6 @@ def encode_watermark(model, signal, payload, pattern_bit_length=16, min_snr=20, 
 
 
 def decode_watermark(model, signal, decode_batch_size=10, len_start_bit=16, show_progress=False):
-    print("TEST: decode_watermark")
     device = next(model.parameters()).device
     start_bit = wm_add_util.fix_pattern[0:len_start_bit]
     mean_result, info = wm_decode_util.extract_watermark_v3_batch(

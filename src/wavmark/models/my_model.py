@@ -42,14 +42,13 @@ class Model(nn.Module):
         return signal_wmd
 
     def decode(self, signal):
-      print("TEST: decode")
 
-      signal_fft = self.stft(signal)
-      watermark_fft = signal_fft
-      _, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
-      message_restored_expanded = self.istft(message_restored_fft)
-      message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
-      return message_restored_float
+        signal_fft = self.stft(signal)
+        watermark_fft = signal_fft
+        _, message_restored_fft = self.enc_dec(signal_fft, watermark_fft, rev=True)
+        message_restored_expanded = self.istft(message_restored_fft)
+        message_restored_float = self.watermark_fc_back(message_restored_expanded).clamp(-1, 1)
+        return message_restored_float
 
         # signal_fft = self.stft(signal)
         # watermark_fft = signal_fft
@@ -70,7 +69,6 @@ class Model(nn.Module):
 
 
     def enc_dec(self, signal, watermark, rev):
-        print("TEST: enc_dec")
         signal = signal.permute(0, 3, 2, 1)
         # [4, 2, 41, 501]
         watermark = watermark.permute(0, 3, 2, 1)
