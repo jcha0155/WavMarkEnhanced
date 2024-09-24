@@ -37,7 +37,6 @@ def encode_watermark(model, signal, payload, pattern_bit_length=16, min_snr=20, 
 def decode_watermark(model, signal, decode_batch_size=10, len_start_bit=16, show_progress=False):
     device = next(model.parameters()).device
     start_bit = wm_add_util.fix_pattern[0:len_start_bit]
-
     mean_result, info = wm_decode_util.extract_watermark_v3_batch(
         signal,
         start_bit,
@@ -46,12 +45,29 @@ def decode_watermark(model, signal, decode_batch_size=10, len_start_bit=16, show
         model,
         device, decode_batch_size, show_progress=show_progress)
 
-
     if mean_result is None:
         return None, info
 
     payload = mean_result[len_start_bit:]
     return payload, info
+
+    # device = next(model.parameters()).device
+    # start_bit = wm_add_util.fix_pattern[0:len_start_bit]
+
+    # mean_result, info = wm_decode_util.extract_watermark_v3_batch(
+    #     signal,
+    #     start_bit,
+    #     0.1,
+    #     16000,
+    #     model,
+    #     device, decode_batch_size, show_progress=show_progress)
+
+
+    # if mean_result is None:
+    #     return None, info
+
+    # payload = mean_result[len_start_bit:]
+    # return payload, info
 
 # 2024-09-11 RAVINDI EDITS
 def decode_watermark_ravindi(model, signal, decode_batch_size=10, len_start_bit=16, show_progress=False):
